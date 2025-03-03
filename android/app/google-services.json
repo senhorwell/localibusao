@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1056960939490",
+    "project_id": "localibusao",
+    "storage_bucket": "localibusao.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056960939490:android:ab871b4d4127f22b4a65bb",
+        "android_client_info": {
+          "package_name": "br.com.localibusao"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChZeqP9pycHTkarekflpVrVPb1N0k4Mn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056960939490:android:5ed864a9649feacb4a65bb",
+        "android_client_info": {
+          "package_name": "com.example.localibusao"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChZeqP9pycHTkarekflpVrVPb1N0k4Mn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

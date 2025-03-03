@@ -1,4 +1,4 @@
-package com.example.localibusao
+package br.com.localibusao
 
 import io.flutter.embedding.android.FlutterActivity
 
