@@ -131,18 +131,18 @@ class _HomePageState extends State<HomePage> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Carro 1'),
+                                        title: const Text('Carro 1'),
                                         content: Text(
                                             'Motorista: ${widget.user.name}\nEmail: ${widget.user.email}'),
                                         actions: <Widget>[
                                           TextButton(
-                                            child: Text('Cancelar'),
+                                            child: const Text('Cancelar'),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
                                           ),
                                           TextButton(
-                                            child: Text('OK'),
+                                            child: const Text('OK'),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
@@ -172,18 +172,18 @@ class _HomePageState extends State<HomePage> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Carro 1'),
+                                        title: const Text('Carro 1'),
                                         content: Text(
                                             'Motorista: ${widget.user.name}\nEmail: ${widget.user.email}'),
                                         actions: <Widget>[
                                           TextButton(
-                                            child: Text('Cancelar'),
+                                            child: const Text('Cancelar'),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
                                           ),
                                           TextButton(
-                                            child: Text('OK'),
+                                            child: const Text('OK'),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
