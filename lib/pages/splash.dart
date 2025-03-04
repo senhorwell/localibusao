@@ -60,7 +60,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xff38b6ff),
         body: SafeArea(
             child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),

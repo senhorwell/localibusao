@@ -1,7 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:localibusao/models/driver.dart';
+import 'package:localibusao/models/route.dart';
 import 'package:localibusao/models/user.dart';
+import 'package:localibusao/services/driver_service.dart';
+import 'package:localibusao/services/route_service.dart';
 
 import '../theme/app_images.dart';
 
@@ -15,82 +20,85 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Map<dynamic, List<String>> casaList = {};
-  Map<dynamic, List<String>> comodoList = {};
+  List<DriverModel> drivers = [];
+  List<RouteModel> routes = [];
+  List<Marker> markers = [];
 
-  final List<IconData> icons = [
-    Icons.person,
-    Icons.person,
-    Icons.person,
-    Icons.person,
-    Icons.person,
-    Icons.person,
-    Icons.person,
-    Icons.person,
-    Icons.person,
-  ];
-
-  String teste = '123';
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Future loadList() async {
-    return await Future.delayed(const Duration(seconds: 1), () {
-      return 'Dados carregados';
+  Future<void> loadMarkers() async {
+    drivers = await DriverService().getDrivers();
+    routes = await RouteService().getRoutes();
+    markers = List.generate(routes.length, (i) {
+      return Marker(
+        point: LatLng(
+            routes[i].points.last.latitude, routes[i].points.last.longitude),
+        width: 50,
+        height: 50,
+        child: InkWell(
+          onTap: () => {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Carro ${routes[i].id}'),
+                  content: Text(
+                      'Motorista: ${widget.user.name}\nEmail: ${widget.user.email}'),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('Cancelar'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    TextButton(
+                      child: const Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
+          },
+          child: Image.asset(
+            AppImages.pin,
+          ),
+        ),
+      );
     });
+    if (kDebugMode) {
+      print("markers");
+      print(markers);
+      print(markers.length);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leadingWidth: 80,
-          leading: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/myAccount');
-              },
-              child: const CircleAvatar(
-                backgroundColor: Colors.grey,
-                child: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
+        leadingWidth: 80,
+        leading: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/myAccount');
+            },
+            child: const CircleAvatar(
+              backgroundColor: Colors.grey,
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
               ),
             ),
           ),
-          actions: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    // Implemente a ação do ícone de olho aqui
-                  },
-                  icon: const Icon(
-                    Icons.remove_red_eye,
-                    color: Colors.white,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 30),
-                  child: Text(
-                    'R\$ 100,00',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ]),
+        ),
+      ),
       body: FutureBuilder(
-          future: loadList(),
-          builder: (context, snapshot) {
-            return SingleChildScrollView(
+        future: loadMarkers(),
+        builder: (context, snapshot) {
+          return Stack(children: [
+            SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,98 +128,40 @@ class _HomePageState extends State<HomePage> {
                           userAgentPackageName: 'com.example.app',
                         ),
                         MarkerLayer(
-                          markers: [
-                            Marker(
-                              point: const LatLng(-26.1109548, -48.6060343),
-                              width: 50,
-                              height: 50,
-                              child: InkWell(
-                                onTap: () => {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Carro 1'),
-                                        content: Text(
-                                            'Motorista: ${widget.user.name}\nEmail: ${widget.user.email}'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: const Text('Cancelar'),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: const Text('OK'),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                },
-                                child: Column(
-                                  children: [
-                                    Image.asset(
-                                      AppImages.pin,
-                                    ),
-                                    const Text('Carro 1'),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Marker(
-                              point: const LatLng(-26.075724, -48.607309),
-                              width: 50,
-                              height: 50,
-                              child: InkWell(
-                                onTap: () => {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Carro 1'),
-                                        content: Text(
-                                            'Motorista: ${widget.user.name}\nEmail: ${widget.user.email}'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: const Text('Cancelar'),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: const Text('OK'),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                },
-                                child: Column(
-                                  children: [
-                                    Image.asset(
-                                      AppImages.pin,
-                                    ),
-                                    const Text('Carro 2'),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                          markers: markers,
                         )
                       ],
                     ),
                   ),
                 ],
               ),
-            );
-          }),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Ação do botão
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        const Color(0xff38b6ff), // Cor de fundo do botão
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0), // Tamanho do botão
+                  ),
+                  child: const Text(
+                    'Iniciar rota',
+                    style: TextStyle(fontSize: 24.0, color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ]);
+        },
+      ),
     );
   }
 }
