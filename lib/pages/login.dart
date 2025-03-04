@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage>
                             context,
                             MaterialPageRoute(
                               builder: (context) => HomePage(
-                                user: User(
+                                user: UserModel(
                                   email: email.text,
                                   name: email.text.split('@').first,
                                 ),

@@ -35,7 +35,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
             builder: (_) => HomePage(
-                  user: User(
+                  user: UserModel(
                     name: 'name',
                     email: 'email',
                   ),

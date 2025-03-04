@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Permissão para acessar a localização mesmo quando o aplicativo estiver fechado, podendo rastrear o veículo do motorista</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Permissão para acessar a localização mesmo quando o aplicativo estiver fechado, podendo rastrear o veículo do motorista</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Permissão para acessar a localização quando o motorista estiver realizando uma rota</string>
 </dict>
 </plist>
